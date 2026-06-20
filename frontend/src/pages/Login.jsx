@@ -12,13 +12,21 @@ function Login() {
     e.preventDefault();
 
     try {
-      await axios.post("https://blog-platform-backend-xn4f.onrender.com/api/auth/login", {
-        email,
-        password,
-      });
+      const res = await axios.post(
+  "https://blog-platform-backend-xn4f.onrender.com/api/auth/login",
+  {
+    email,
+    password,
+  }
+);
 
-      alert("Login Successful");
-      navigate("/home");
+localStorage.setItem(
+  "user",
+  JSON.stringify(res.data.user)
+);
+
+alert("Login Successful");
+navigate("/home");
     } catch (error) {
   console.log(error.response?.data);
   alert(error.response?.data?.message || "Login Failed");

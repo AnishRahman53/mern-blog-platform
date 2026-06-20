@@ -13,14 +13,19 @@ function EditPost() {
   const updatePost = async (e) => {
     e.preventDefault();
 
-    try {
-      await axios.put(
-        `https://blog-platform-backend-xn4f.onrender.com/api/posts/${id}`,
-        {
-          title,
-          content,
-        }
-      );
+   try {
+  const user = JSON.parse(
+    localStorage.getItem("user")
+  );
+
+  await axios.put(
+    `https://blog-platform-backend-xn4f.onrender.com/api/posts/${id}`,
+    {
+      title,
+      content,
+      userId: user._id,
+    }
+  );
 
       alert("Post Updated Successfully");
       navigate("/home");

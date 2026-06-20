@@ -12,13 +12,17 @@ function CreatePost() {
 
   const createPost = async (e) => {
     e.preventDefault();
+    const user = JSON.parse(
+  localStorage.getItem("user")
+);
 
     try {
       await axios.post("https://blog-platform-backend-xn4f.onrender.com/api/posts", {
         title,
         content,
         category,
-        author: "Anish",
+        author: user.username,
+        userId: user._id,
       });
 
       alert("Post Created Successfully");

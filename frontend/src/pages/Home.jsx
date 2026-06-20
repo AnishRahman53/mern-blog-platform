@@ -11,6 +11,9 @@ function Home() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
   const [commentText, setCommentText] = useState("");
+  const currentUser = JSON.parse(
+  localStorage.getItem("user")
+);
 
   useEffect(() => {
     fetchPosts();
@@ -40,17 +43,26 @@ function Home() {
   };
 
   const deletePost = async (id) => {
-    try {
-      await axios.delete(
-        `https://blog-platform-backend-xn4f.onrender.com/api/posts/${id}`
-      );
+  try {
+    const currentUser = JSON.parse(
+      localStorage.getItem("user")
+    );
 
-      alert("Post Deleted");
-      fetchPosts();
-    } catch (error) {
-      alert("Delete Failed");
-    }
-  };
+    await axios.delete(
+      `https://blog-platform-backend-xn4f.onrender.com/api/posts/${id}`,
+      {
+        data: {
+          userId: currentUser._id,
+        },
+      }
+    );
+
+    alert("Post Deleted");
+    fetchPosts();
+  } catch (error) {
+    alert("Delete Failed");
+  }
+};
 
   const addComment = async (postId) => {
     try {
@@ -156,24 +168,30 @@ function Home() {
           <p className="post-author">
             By {post.author}
           </p>
+          <p>Current User: {currentUser?._id}</p>
+          <p>Post User: {post.userId}</p>
 
-          <button
-            className="edit-btn"
-            onClick={() =>
-              navigate(`/edit/${post._id}`)
-            }
-          >
-            Edit
-          </button>
+          {currentUser?._id === post.userId && (
+  <>
+    <button
+      className="edit-btn"
+      onClick={() =>
+        navigate(`/edit/${post._id}`)
+      }
+    >
+      Edit
+    </button>
 
-          <button
-            className="delete-btn"
-            onClick={() =>
-              deletePost(post._id)
-            }
-          >
-            Delete
-          </button>
+    <button
+      className="delete-btn"
+      onClick={() =>
+        deletePost(post._id)
+      }
+    >
+      Delete
+    </button>
+  </>
+)}
 
           <div className="comment-section">
             <h3>Comments</h3>

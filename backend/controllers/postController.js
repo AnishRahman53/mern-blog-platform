@@ -2,6 +2,7 @@ const Post = require("../models/Post");
 
 const createPost = async (req, res) => {
   try {
+    console.log(req.body);
     const post = await Post.create(req.body);
 
     res.status(201).json(post);
@@ -25,13 +26,32 @@ const getPosts = async (req, res) => {
     });
   }
 };
+
 const updatePost = async (req, res) => {
   try {
-    const post = await Post.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
+    const post = await Post.findById(
+      req.params.id
     );
+
+    if (!post) {
+      return res.status(404).json({
+        message: "Post not found",
+      });
+    }
+
+    if (
+      post.userId.toString() !==
+      req.body.userId
+    ) {
+      return res.status(403).json({
+        message: "Not authorized",
+      });
+    }
+
+    post.title = req.body.title;
+    post.content = req.body.content;
+
+    await post.save();
 
     res.json(post);
   } catch (error) {
@@ -40,9 +60,29 @@ const updatePost = async (req, res) => {
     });
   }
 };
+
 const deletePost = async (req, res) => {
   try {
-    await Post.findByIdAndDelete(req.params.id);
+    const post = await Post.findById(
+      req.params.id
+    );
+
+    if (!post) {
+      return res.status(404).json({
+        message: "Post not found",
+      });
+    }
+
+    if (
+      post.userId.toString() !==
+      req.body.userId
+    ) {
+      return res.status(403).json({
+        message: "Not authorized",
+      });
+    }
+
+    await post.deleteOne();
 
     res.json({
       message: "Post deleted successfully",
