@@ -12,7 +12,7 @@ function Login() {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:5000/api/auth/login", {
+      await axios.post("https://blog-platform-backend-xn4f.onrender.com/api/auth/login", {
         email,
         password,
       });

@@ -13,7 +13,7 @@ function Register() {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:5000/api/auth/register", {
+      await axios.post("https://blog-platform-backend-xn4f.onrender.com/api/auth/register", {
         username,
         email,
         password,

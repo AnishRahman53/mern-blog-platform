@@ -15,7 +15,7 @@ function EditPost() {
 
     try {
       await axios.put(
-        `http://localhost:5000/api/posts/${id}`,
+        `https://blog-platform-backend-xn4f.onrender.com/api/posts/${id}`,
         {
           title,
           content,

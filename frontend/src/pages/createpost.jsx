@@ -14,7 +14,7 @@ function CreatePost() {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:5000/api/posts", {
+      await axios.post("https://blog-platform-backend-xn4f.onrender.com/api/posts", {
         title,
         content,
         category,

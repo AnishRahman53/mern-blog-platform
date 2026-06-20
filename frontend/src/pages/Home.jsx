@@ -20,7 +20,7 @@ function Home() {
   const fetchPosts = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/posts"
+        "https://blog-platform-backend-xn4f.onrender.com/api/posts"
       );
       setPosts(res.data);
     } catch (error) {
@@ -31,7 +31,7 @@ function Home() {
   const fetchComments = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/comments"
+        "https://blog-platform-backend-xn4f.onrender.com/api/comments"
       );
       setComments(res.data);
     } catch (error) {
@@ -42,7 +42,7 @@ function Home() {
   const deletePost = async (id) => {
     try {
       await axios.delete(
-        `http://localhost:5000/api/posts/${id}`
+        `https://blog-platform-backend-xn4f.onrender.com/api/posts/${id}`
       );
 
       alert("Post Deleted");
@@ -55,7 +55,7 @@ function Home() {
   const addComment = async (postId) => {
     try {
       await axios.post(
-        "http://localhost:5000/api/comments",
+        "https://blog-platform-backend-xn4f.onrender.com/api/comments",
         {
           postId,
           username: "Anish",
