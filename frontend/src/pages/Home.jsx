@@ -168,8 +168,7 @@ function Home() {
           <p className="post-author">
             By {post.author}
           </p>
-          <p>Current User: {currentUser?._id}</p>
-          <p>Post User: {post.userId}</p>
+          
 
           {currentUser?._id === post.userId && (
   <>
