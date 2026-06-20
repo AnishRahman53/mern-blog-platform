@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "./Home.css";
+import "./home.css";
 
 function CreatePost() {
   const [title, setTitle] = useState("");

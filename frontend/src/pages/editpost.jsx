@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import "./Home.css";
+import "./home.css";
 
 function EditPost() {
   const [title, setTitle] = useState("");
